@@ -51,6 +51,10 @@ const DriverEntry* de;
 const Standings* se;
 const SessionInfo* si;
 const PitStop* ps;
+const OpponentCarData* od;
+const ChassisData* cd;
+const DriverInput* di;
+
 
 // Sets up the telemtry session, allowing the program access to the telemetry memory space of NR2003.
 NR2003_API bool Setup()
@@ -142,6 +146,9 @@ NR2003_API void RequestData()
 				if ((se = (const Standings*)AppGetSimData(kStandings)) != NULL) {}
 				if ((si = (const SessionInfo*)AppGetSimData(kSessionInfo)) != NULL) {}
 				if ((ps = (const PitStop*)AppGetSimData(kPitStop)) != NULL) {}
+				if ((od = (const OpponentCarData*)AppGetSimData(kOpponentCarData)) != NULL) {}
+				if ((cd = (const ChassisData*)AppGetSimData(kChassisData)) != NULL) {}
+				if ((di = (const DriverInput*)AppGetSimData(kDriverInput)) != NULL) {}
 
 			}
 			else if (newSample)
@@ -155,6 +162,9 @@ NR2003_API void RequestData()
 				if ((se = (const Standings*)AppGetSimData(kStandings)) != NULL) {}
 				if ((si = (const SessionInfo*)AppGetSimData(kSessionInfo)) != NULL) {}
 				if ((ps = (const PitStop*)AppGetSimData(kPitStop)) != NULL) {}
+				if ((od = (const OpponentCarData*)AppGetSimData(kOpponentCarData)) != NULL) {}
+				if ((cd = (const ChassisData*)AppGetSimData(kChassisData)) != NULL) {}
+				if ((di = (const DriverInput*)AppGetSimData(kDriverInput)) != NULL) {}
 
 				// While it is not strictly necessary that you call
 				// this function, it is a very good idea to do so
@@ -258,6 +268,20 @@ NR2003_API uintptr_t GetPitStop()
 	return retVal;
 }
 
+NR2003_API uintptr_t GetOpponentCarData() 
+{		
+	return (uintptr_t)od;
+}
+
+NR2003_API uintptr_t GetChassisData()
+{
+	return (uintptr_t)cd;
+}
+
+NR2003_API uintptr_t GetDriverInput() 
+{
+	return (uintptr_t)di;
+}
 
 
 /*

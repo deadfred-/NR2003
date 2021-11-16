@@ -25,5 +25,8 @@ extern "C" NR2003_API uintptr_t GetDriverEntry();
 extern "C" NR2003_API uintptr_t GetStandings();
 extern "C" NR2003_API uintptr_t GetSessionInfo();
 extern "C" NR2003_API uintptr_t GetPitStop();
+extern "C" NR2003_API uintptr_t GetOpponentCarData();
+extern "C" NR2003_API uintptr_t GetChassisData();
+extern "C" NR2003_API uintptr_t GetDriverInput();
 
 extern "C" NR2003_API void DataGatherBackGround();
