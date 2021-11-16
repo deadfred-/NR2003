@@ -24,5 +24,6 @@ extern "C" NR2003_API uintptr_t GetLapCrossing();
 extern "C" NR2003_API uintptr_t GetDriverEntry();
 extern "C" NR2003_API uintptr_t GetStandings();
 extern "C" NR2003_API uintptr_t GetSessionInfo();
+extern "C" NR2003_API uintptr_t GetPitStop();
 
 extern "C" NR2003_API void DataGatherBackGround();

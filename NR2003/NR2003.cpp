@@ -50,6 +50,7 @@ const LapCrossing* lc;
 const DriverEntry* de;
 const Standings* se;
 const SessionInfo* si;
+const PitStop* ps;
 
 // Sets up the telemtry session, allowing the program access to the telemetry memory space of NR2003.
 NR2003_API bool Setup()
@@ -61,28 +62,28 @@ NR2003_API bool Setup()
 
 	if (AppBegin("NR2003"))
 	{
-		(void)AppRequestDataItems(sizeof(desired) / sizeof(desired[0]),	desired);
+		(void)AppRequestDataItems(sizeof(desired) / sizeof(desired[0]), desired);
 		(void)AppRequestDataAtPhysicsRate(sampleAtPhysicsRate);
 		(void)AppEnableSampling(true);
 	}
 	// since we called it we need to end it...
 	/*
-	if (AppCheckIfSimActiveQ()) 
+	if (AppCheckIfSimActiveQ())
 	{
 		AppEnd();
 	}
-	*/	
+	*/
 
 	//std::thread t1(DataGatherBackGround);
 	//t1.join();
-	
+
 	returnValue = true;
 
 	return returnValue;
 }
 
-NR2003_API bool EndTelemetry() 
-{	
+NR2003_API bool EndTelemetry()
+{
 	if (AppCheckIfSimActiveQ())
 	{
 		AppEnd();
@@ -116,7 +117,7 @@ NR2003_API void RequestData()
 	eSimDataType newStateData;
 	bool newSample;
 	if ((newSample = AppWaitForNewSample(&newStateData, timeOutMs)) == true ||
-		newStateData != kNoStateInfo || 
+		newStateData != kNoStateInfo ||
 		AppCheckIfSimActiveQ())
 	{
 		// See if any new telemetry from the sim.
@@ -134,51 +135,26 @@ NR2003_API void RequestData()
 				// It was state data.  Process it.
 				//printStateData(newStateData);
 				//printStatus(newStateData);				
-				if ((gd = (const GaugeData*)AppGetSimData(kGaugeData)) != NULL)
-				{
-					// success!
-				}
-				if ((cw = (const CurrentWeekend*)AppGetSimData(kCurrentWeekend)) != NULL)
-				{
-					// Success!
-
-				}
-				
-				if ((lc = (const LapCrossing*)AppGetSimData(kLapCrossing)) != NULL){}				
-				if ((de = (const DriverEntry*)AppGetSimData(kDriverEntry)) != NULL)
-				{
-					// success!
-				}
+				if ((gd = (const GaugeData*)AppGetSimData(kGaugeData)) != NULL) {}
+				if ((cw = (const CurrentWeekend*)AppGetSimData(kCurrentWeekend)) != NULL) {}
+				if ((lc = (const LapCrossing*)AppGetSimData(kLapCrossing)) != NULL) {}
+				if ((de = (const DriverEntry*)AppGetSimData(kDriverEntry)) != NULL) {}
 				if ((se = (const Standings*)AppGetSimData(kStandings)) != NULL) {}
 				if ((si = (const SessionInfo*)AppGetSimData(kSessionInfo)) != NULL) {}
-				
+				if ((ps = (const PitStop*)AppGetSimData(kPitStop)) != NULL) {}
+
 			}
 			else if (newSample)
 			{
 				//printStatus();
 				//printSample();
-				if ((gd = (const GaugeData*)AppGetSimData(kGaugeData)) != NULL)
-				{
-					// success!
-				}
-				if ((cw = (const CurrentWeekend*)AppGetSimData(kCurrentWeekend)) != NULL)
-				{
-					// Success!
-
-				}
-				if ((lc = (const LapCrossing*)AppGetSimData(kLapCrossing)) != NULL)
-				{
-
-					// success
-				}
-				if ((de = (const DriverEntry*)AppGetSimData(kDriverEntry)) != NULL)
-				{
-					// success!
-				}
+				if ((gd = (const GaugeData*)AppGetSimData(kGaugeData)) != NULL) {}
+				if ((cw = (const CurrentWeekend*)AppGetSimData(kCurrentWeekend)) != NULL) {}
+				if ((lc = (const LapCrossing*)AppGetSimData(kLapCrossing)) != NULL) {}
+				if ((de = (const DriverEntry*)AppGetSimData(kDriverEntry)) != NULL) {}
 				if ((se = (const Standings*)AppGetSimData(kStandings)) != NULL) {}
-
 				if ((si = (const SessionInfo*)AppGetSimData(kSessionInfo)) != NULL) {}
-
+				if ((ps = (const PitStop*)AppGetSimData(kPitStop)) != NULL) {}
 
 				// While it is not strictly necessary that you call
 				// this function, it is a very good idea to do so
@@ -226,8 +202,8 @@ NR2003_API void RequestData()
 				AppClearSimDataOverrun();
 			}
 		}
-		
-		
+
+
 	}
 
 	return void();
@@ -242,14 +218,14 @@ NR2003_API uintptr_t GetGaugeData()
 
 NR2003_API uintptr_t GetCurrentWeekend()
 {
-	uintptr_t retVal = 0;	
+	uintptr_t retVal = 0;
 	retVal = (uintptr_t)cw;
 	return retVal;
 }
 
 NR2003_API uintptr_t GetLapCrossing()
 {
-	uintptr_t retVal = 0;	
+	uintptr_t retVal = 0;
 	retVal = (uintptr_t)lc;
 	return retVal;
 }
@@ -274,6 +250,14 @@ NR2003_API uintptr_t GetSessionInfo()
 	retVal = (uintptr_t)si;
 	return retVal;
 }
+
+NR2003_API uintptr_t GetPitStop()
+{
+	uintptr_t retVal = 0;
+	retVal = (uintptr_t)ps;
+	return retVal;
+}
+
 
 
 /*
