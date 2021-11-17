@@ -18,7 +18,7 @@ const bool sampleAtPhysicsRate = false;
 // components with "PapyTelem::".  
 using namespace PapyTelem;
 
-const eSimDataType desired[] =
+const eSimDataType _desired[] =
 {
 
 			kSampleHeader,
@@ -29,18 +29,18 @@ const eSimDataType desired[] =
 			kDriverInput,
 
 			kGaugeData,
-			kOpponentCarData,
+			//kOpponentCarData,
 
 			kCurrentWeekend,		// Want state information, too
 			kDriverInCar,
 			kGameIsPaused,
-			kCarSetup,
+			//kCarSetup,
 			kPitStop,
-			kDriverEntry,
+			//kDriverEntry,
 			kDriverWithdrawl,
 			kSessionInfo,
 			kLapCrossing,
-			kStandings
+			//kStandings
 };
 
 
@@ -64,9 +64,12 @@ NR2003_API bool Setup()
 
 	SetPriorityClass(GetCurrentProcess(), HIGH_PRIORITY_CLASS);
 
+	// set our desired	
+
+
 	if (AppBegin("NR2003"))
 	{
-		(void)AppRequestDataItems(sizeof(desired) / sizeof(desired[0]), desired);
+		(void)AppRequestDataItems(sizeof(_desired) / sizeof(_desired[0]), _desired);
 		(void)AppRequestDataAtPhysicsRate(sampleAtPhysicsRate);
 		(void)AppEnableSampling(true);
 	}
